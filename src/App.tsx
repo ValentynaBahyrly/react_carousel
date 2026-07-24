@@ -4,6 +4,11 @@ import Carousel from './components/Carousel';
 
 interface State {
   images: string[];
+  step: number;
+  frameSize: number;
+  itemWidth: number;
+  animationDuration: number;
+  infinite: boolean;
 }
 
 class App extends React.Component<{}, State> {
@@ -20,6 +25,12 @@ class App extends React.Component<{}, State> {
       './img/9.png',
       './img/10.png',
     ],
+
+    step: 3,
+    frameSize: 3,
+    itemWidth: 130,
+    animationDuration: 1000,
+    infinite: false,
   };
 
   render() {
@@ -30,7 +41,54 @@ class App extends React.Component<{}, State> {
         {/* eslint-disable-next-line */}
         <h1 data-cy="title">Carousel with {images.length} images</h1>
 
-        <Carousel images={images} />
+        <div>
+          <label htmlFor="stepId">Крок:</label>
+          <input
+            id="stepId"
+            type="number"
+            value={this.state.step}
+            onChange={e => this.setState({ step: Number(e.target.value) })}
+          />
+        </div>
+        <div>
+          <label htmlFor="itemId">Ширина:</label>
+          <input
+            id="itemId"
+            type="number"
+            value={this.state.itemWidth}
+            onChange={e => this.setState({ itemWidth: Number(e.target.value) })}
+          />
+        </div>
+        <div>
+          <label htmlFor="frameId">Розмір кадру:</label>
+          <input
+            id="frameId"
+            type="number"
+            value={this.state.frameSize}
+            onChange={e => this.setState({ frameSize: Number(e.target.value) })}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="animationDurationId">Час анімації:</label>
+          <input
+            id="animationDurationId"
+            type="number"
+            value={this.state.animationDuration}
+            onChange={e =>
+              this.setState({ animationDuration: Number(e.target.value) })
+            }
+          />
+        </div>
+
+        <Carousel
+          images={images}
+          step={this.state.step}
+          itemWidth={this.state.itemWidth}
+          frameSize={this.state.frameSize}
+          animationDuration={this.state.animationDuration}
+          infinite={this.state.infinite}
+        />
       </div>
     );
   }
